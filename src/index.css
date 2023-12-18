@@ -1,0 +1,22 @@
+:root {
+  font-family: 'DM Sans', sans-serif;
+  height: 100%;
+  background-image: url('images/hero_img.jpg');
+  background-position: top;
+  background-color: #040711;
+  background-repeat: no-repeat;
+  background-size: auto;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+@media (min-width: 1281px) {
+  :root {
+    background-size: contain;
+  }
+}
+
