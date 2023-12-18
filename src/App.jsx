@@ -1,4 +1,6 @@
 import translateApi from './api/translateApi';
+import TranslateCard from './components/TranslateCard';
+
 import './App.css'
 
 function App() {
@@ -16,12 +18,11 @@ function App() {
     }
   }
   
-  // Llama a la función de ejemplo
   exampleUsage();
 
   return (
     <div className="app">
-      <h1>ola</h1>
+      <TranslateCard />
     </div>
   )
 }
