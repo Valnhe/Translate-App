@@ -1,18 +1,18 @@
-
 import PropTypes from 'prop-types';
 
-import countries from '../api/countries.js'
 import ButtonsNavBar from './ButtonsNavBar.jsx';
 import NavBar from './NavBar.jsx';
 import Buttons from './Buttons.jsx';
+
+import countries from '../api/countries.js'
 import Down from '../images/Expand_down.svg'
 import Arrow from '../images/Horizontal_top_left_main.svg'
 
 
 function TranslatedCard ({text, toLanguage, onSetLanguage , interchangeLanguages }) {	
 
-
     const language = toLanguage;
+    const selectValue = language === 'en' || language === 'fr' ? 'es' : language;
 
     const handleClickEnglish = () => {
         onSetLanguage('en');
@@ -26,9 +26,6 @@ function TranslatedCard ({text, toLanguage, onSetLanguage , interchangeLanguages
         const code = e.target.value;
         onSetLanguage(code); 
     }
-
-    const selectValue = language === 'en' || language === 'fr' ? 'es' : language;
-
 
     return (
         <section className="bg-translatedcolor border border-bordercolor rounded-3xl w-full xl:w-1/2 p-5 text-[14px] mb-32 xl:mb-0">
@@ -53,10 +50,11 @@ function TranslatedCard ({text, toLanguage, onSetLanguage , interchangeLanguages
                 </ButtonsNavBar>
                 <img src={Arrow} alt="Arrow" className='border-2 border-bordercolor p-2 aspect-square rounded-xl cursor-pointer mr-1' onClick={interchangeLanguages}/>
             </NavBar>
+
             <div className='w-full h-[200px] mb-5 text-textwhite font-bold text-[16px]'>
                 {text}
             </div>
-
+            
             <Buttons text={text} lenguage={toLanguage}/>
         </section>
     );

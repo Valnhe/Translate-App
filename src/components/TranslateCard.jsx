@@ -1,13 +1,11 @@
-
 import PropTypes from 'prop-types';
-
 import '../App.css'
 
-import countries from '../api/countries.js'
 import ButtonsNavBar from './ButtonsNavBar.jsx';
 import NavBar from './NavBar.jsx';
 import Buttons from './Buttons.jsx';
 
+import countries from '../api/countries.js'
 import Sort from '../images/Sort_alfa.svg'
 import Down from '../images/Expand_down.svg'
 
@@ -15,6 +13,8 @@ import Down from '../images/Expand_down.svg'
 function TranslateCard ({fromText, onSetText , fromLanguage , onSetLanguage , onTranslation }) {
 
     const language = fromLanguage;
+    const length = fromText.length;
+    const selectValue = language === 'en' || language === 'fr' ? 'es' : fromLanguage;
 
     const handleClickDetect = () => {
         onSetLanguage('autodetect');
@@ -37,9 +37,6 @@ function TranslateCard ({fromText, onSetText , fromLanguage , onSetLanguage , on
         const text = e.target.value;
         onSetText(text);
     }
-
-    const length = fromText.length;
-    const selectValue = language === 'en' || language === 'fr' ? 'es' : fromLanguage;
 
     return (
         <section className='bg-translatecolor border border-bordercolor rounded-3xl w-full xl:w-1/2 p-5 text-[14px]'>
@@ -67,15 +64,12 @@ function TranslateCard ({fromText, onSetText , fromLanguage , onSetLanguage , on
                         </select>
                         <img src={Down} alt="Down"/>
                     </label>
-            
                 </ButtonsNavBar>
             </NavBar>
             
-            <textarea className='textarea' name="translate-text" placeholder="Enter Text" maxLength="500" value={fromText} onChange={handleTextChange}>
-            </textarea>
-            
+            <textarea className='textarea' name="translate-text" placeholder="Enter Text" maxLength="500" value={fromText} onChange={handleTextChange}></textarea>
             <p className='text-[12px] text-theothergraycolor float-right mb-2'>{length}/500</p>
-
+            
             <div className='flex justify-between items-end w-full'>
                 <Buttons text={fromText} lenguage={fromLanguage}/>
                 <button className='flex justify-center gap-2 border bg-buttonblue border-borderblue text-textwhite font-bold text-[16px] py-3 px-5 rounded-xl' onClick={onTranslation}>
