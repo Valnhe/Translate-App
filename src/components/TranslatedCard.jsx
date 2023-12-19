@@ -28,10 +28,10 @@ function TranslatedCard ({text, toLanguage, onSetLanguage , interchangeLanguages
     }
 
     return (
-        <section className="bg-translatedcolor border border-bordercolor rounded-3xl w-full xl:w-1/2 p-5 text-[14px] mb-32 xl:mb-0">
+        <section className="bg-translatedcolor border border-bordercolor rounded-3xl w-full xl:w-1/2 p-5 text-[10px] md:text-[14px] mb-32 xl:mb-0">
             <NavBar>
                 <ButtonsNavBar>
-                    <button onClick={handleClickEnglish} className={`px-3 py-2 ml-1 ${language === 'en' ? 'active' : ''}`}>
+                    <button onClick={handleClickEnglish} className={`px-3 py-2 md:ml-1 ${language === 'en' ? 'active' : ''}`}>
                         English
                     </button>
                     <button onClick={handleClickFrench} className={`px-3 py-2 ${language === 'fr' ? 'active' : ''}`}>

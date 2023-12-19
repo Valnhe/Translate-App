@@ -39,10 +39,10 @@ function TranslateCard ({fromText, onSetText , fromLanguage , onSetLanguage , on
     }
 
     return (
-        <section className='bg-translatecolor border border-bordercolor rounded-3xl w-full xl:w-1/2 p-5 text-[14px]'>
+        <section className='bg-translatecolor border border-bordercolor rounded-3xl w-full xl:w-1/2 p-5 text-[10px] md:text-[14px]'>
             <NavBar>
                 <ButtonsNavBar>
-                    <button onClick={handleClickDetect} className={`px-3 py-2 ml-1 ${language === 'autodetect' ? 'active' : ''}`} >
+                    <button onClick={handleClickDetect} className={`px-3 py-2 md:ml-1 ${language === 'autodetect' ? 'active' : ''}`} >
                         Detect Language
                     </button>
 
