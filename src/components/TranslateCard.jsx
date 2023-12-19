@@ -1,75 +1,98 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
+
+import '../App.css'
 
 import countries from '../api/countries.js'
+import ButtonsNavBar from './ButtonsNavBar.jsx';
+import NavBar from './NavBar.jsx';
+import Buttons from './Buttons.jsx';
 
-import Sound from '../images/sound.svg'
-import Copy from '../images/Copy.svg'
 import Sort from '../images/Sort_alfa.svg'
+import Down from '../images/Expand_down.svg'
 
 
-function TranslateCard () {
+function TranslateCard ({onTranslate}) {
 
     const [language, setLanguage] = useState('en');
+    const [text, setText] = useState('hello');
 
     const handleClickDetect = () => {
         setLanguage('all');
-        console.log('Detect Language');
     }
 
     const handleClickEnglish = () => {
         setLanguage('en');
-        console.log('English');
     }
 
     const handleClickFrench = () => {
         setLanguage('fr');
-        console.log('French');
+
     }
 
-    const handleClickMore = (code) => {
+    const handleChangeMore = (e) => {
+        const code = e.target.value;
         setLanguage(code);
-        console.log(code);
+    }
+
+    const handleTextChange = (e) => {
+        const text = e.target.value;
+        setText(text);
+    }
+
+    const handleClick = () => {
+        onTranslate(language, text);
     }
 
     return (
-        <section>
-            <nav className=''>
-                <button onClick={handleClickDetect} className={language === 'all' ? 'active' : ''} >
-                    Detect Language
-                </button>
-                <button onClick={handleClickEnglish}>
-                    English
-                </button>
-                <button onClick={handleClickFrench}>
-                    French
-                </button>
-                <select name="more">
-                    {Object.entries(countries).map(([countryCode, countryName]) => (
-                        <option key={countryCode} value={countryCode} onClick={() => handleClickMore(countryCode)}>
-                            {countryName}
-                        </option>
-                    ))}
-                </select>
+        <section className='bg-translatecolor border border-bordercolor rounded-3xl w-full xl:w-1/2 p-5 text-[14px]'>
+            <NavBar>
+                <ButtonsNavBar>
+                    <button onClick={handleClickDetect} className={`px-3 py-2 ml-1 ${language === 'all' ? 'active' : ''}`} >
+                        Detect Language
+                    </button>
 
-            </nav>
+                    <button onClick={handleClickEnglish} className={`px-3 py-2 ${language === 'en' ? 'active' : ''}`}>
+                        English
+                    </button>
+
+                    <button onClick={handleClickFrench} className={`px-3 py-2 ${language === 'fr' ? 'active' : ''}`}>
+                        French
+                    </button>
+                    
+                    <label className="flex">
+                        <select name="more" onChange={handleChangeMore} className='input translatecard'>
+                            {Object.entries(countries).map(([countryCode, countryName]) => (
+                                <option key={countryCode} value={countryCode}>
+                                    {countryName}
+                                </option>
+                            ))}
+                        </select>
+                        <img src={Down} alt="Down"/>
+                    </label>
             
-            <textarea name="translate-text" cols="30" rows="10" placeholder="Translation">
-                Hello, how are you!
+                </ButtonsNavBar>
+            </NavBar>
+            
+            <textarea className='textarea' name="translate-text" placeholder="Translation" maxLength="500" value={text} onChange={handleTextChange}>
             </textarea>
             
-            <ul>
-                <li>
-                    <img src={Sound} alt="sound" />
-                </li>
-                <li>
-                    <img src={Copy} alt="copy" />
-                </li>
-            </ul>
-            <button className='flex justify-center'>
-                <img src={Sort} alt="sort" />
-                Translate
-            </button>
+            <p className='text-[12px] text-theothergraycolor float-right mb-2'>19/500</p>
+
+            <div className='flex justify-between items-end w-full'>
+                <Buttons/>
+                <button className='flex justify-center gap-2 border bg-buttonblue border-borderblue text-textwhite font-bold text-[16px] py-3 px-5 rounded-xl' onClick={handleClick}>
+                    <img src={Sort} alt="sort" />
+                    Translate
+                </button>
+            </div>
         </section>
     )
 
-} export default TranslateCard;
+} 
+
+TranslateCard.propTypes = {
+    onTranslate: PropTypes.func.isRequired,
+  };
+
+export default TranslateCard;
