@@ -1,4 +1,3 @@
-
 import { useReducer } from "react"
 
 const initialState = {
@@ -50,6 +49,7 @@ const initialState = {
     }
   
     if (type === 'SET_RESULT') {
+      
       return {
         ...state,
         result: action.payload
