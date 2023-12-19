@@ -5,8 +5,7 @@ const initialState = {
     fromLanguage: 'en',
     toLanguage: 'fr',
     fromText: 'Hello, how are you?',
-    result: 'Bonjour, comment allez-vous?',
-    loading: false
+    result: 'Bonjour, comment allez-vous?'
   }
   
   function reducer (state, action) {
@@ -53,7 +52,6 @@ const initialState = {
     if (type === 'SET_RESULT') {
       return {
         ...state,
-        loading: false,
         result: action.payload
       }
     }
@@ -66,8 +64,7 @@ const initialState = {
       fromLanguage,
       toLanguage,
       fromText,
-      result,
-      loading
+      result
     }, dispatch] = useReducer(reducer, initialState)
   
     const interchangeLanguages = () => {
@@ -95,7 +92,6 @@ const initialState = {
       toLanguage,
       fromText,
       result,
-      loading,
       interchangeLanguages,
       setFromLanguage,
       setToLanguage,

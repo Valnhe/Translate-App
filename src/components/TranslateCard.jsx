@@ -38,7 +38,7 @@ function TranslateCard ({fromText, onSetText , fromLanguage , onSetLanguage , on
         onSetText(text);
     }
 
-    const length= fromText.length;
+    const length = fromText.length;
     const selectValue = language === 'en' || language === 'fr' ? 'es' : fromLanguage;
 
     return (

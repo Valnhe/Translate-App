@@ -11,6 +11,7 @@ import Arrow from '../images/Horizontal_top_left_main.svg'
 
 function TranslatedCard ({text, toLanguage, onSetLanguage , interchangeLanguages }) {	
 
+
     const language = toLanguage;
 
     const handleClickEnglish = () => {
@@ -23,10 +24,11 @@ function TranslatedCard ({text, toLanguage, onSetLanguage , interchangeLanguages
 
     const handleChangeMore = (e) => {
         const code = e.target.value;
-        onSetLanguage(code);
+        onSetLanguage(code); 
     }
 
-    const selectValue = language === 'en' || language === 'fr' ? 'es' : toLanguage;
+    const selectValue = language === 'en' || language === 'fr' ? 'es' : language;
+
 
     return (
         <section className="bg-translatedcolor border border-bordercolor rounded-3xl w-full xl:w-1/2 p-5 text-[14px] mb-32 xl:mb-0">
@@ -38,7 +40,7 @@ function TranslatedCard ({text, toLanguage, onSetLanguage , interchangeLanguages
                     <button onClick={handleClickFrench} className={`px-3 py-2 ${language === 'fr' ? 'active' : ''}`}>
                         French
                     </button>
-                    <label className={`flex ${language !== 'autodetect' && language !== 'en' && language !== 'fr' ? 'active' : ''}`}>
+                    <label className={`flex ${language !== 'autodetect' && language !== 'en' && language !== 'fr' ? 'active' : ''}`} >
                         <select name="more" className='input translatecard' onChange={handleChangeMore} value={selectValue}>
                             {Object.entries(countries).map(([countryCode, countryName]) => (
                                 <option key={countryCode} value={countryCode} className='bg-translatedcolor'>

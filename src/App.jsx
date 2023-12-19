@@ -11,7 +11,6 @@ import Logo from './images/logo.svg'
 function App() {
 
   const {
-    loading,
     fromLanguage,
     toLanguage,
     fromText,
@@ -23,7 +22,6 @@ function App() {
     setResult
   } = useTranslation();
 
-  console.log(loading);
 
   async function Translator(firstLanguage, secondLanguage, textToTranslate) {
   
@@ -42,7 +40,6 @@ function App() {
 
   const handleTranslation = () => {
     Translator(fromLanguage, toLanguage, fromText);
-    console.log(result)
   }
 
   return (
