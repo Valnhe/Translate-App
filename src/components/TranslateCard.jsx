@@ -12,36 +12,32 @@ import Sort from '../images/Sort_alfa.svg'
 import Down from '../images/Expand_down.svg'
 
 
-function TranslateCard ({onTranslate}) {
+function TranslateCard ({onSetLanguage}) {
 
-    const [language, setLanguage] = useState('en');
+    const language = 'en';
     const [text, setText] = useState('hello');
 
     const handleClickDetect = () => {
-        setLanguage('all');
+        onSetLanguage('all');
     }
 
     const handleClickEnglish = () => {
-        setLanguage('en');
+        onSetLanguage('en');
     }
 
     const handleClickFrench = () => {
-        setLanguage('fr');
+        onSetLanguage('fr');
 
     }
 
     const handleChangeMore = (e) => {
         const code = e.target.value;
-        setLanguage(code);
+        onSetLanguage(code);
     }
 
     const handleTextChange = (e) => {
         const text = e.target.value;
         setText(text);
-    }
-
-    const handleClick = () => {
-        onTranslate(language, text);
     }
 
     return (
@@ -81,7 +77,7 @@ function TranslateCard ({onTranslate}) {
 
             <div className='flex justify-between items-end w-full'>
                 <Buttons/>
-                <button className='flex justify-center gap-2 border bg-buttonblue border-borderblue text-textwhite font-bold text-[16px] py-3 px-5 rounded-xl' onClick={handleClick}>
+                <button className='flex justify-center gap-2 border bg-buttonblue border-borderblue text-textwhite font-bold text-[16px] py-3 px-5 rounded-xl'>
                     <img src={Sort} alt="sort" />
                     Translate
                 </button>
@@ -92,7 +88,7 @@ function TranslateCard ({onTranslate}) {
 } 
 
 TranslateCard.propTypes = {
-    onTranslate: PropTypes.func.isRequired,
+    onSetLanguage: PropTypes.func.isRequired,
   };
 
 export default TranslateCard;

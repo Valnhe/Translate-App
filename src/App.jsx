@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useTransition } from 'react';
 
 import translateApi from './api/translateApi';
 
@@ -10,20 +10,25 @@ import Logo from './images/logo.svg'
 
 function App() {
 
-  const [translation, setTranslation] = useState({
-    firstLanguage: 'en',
-    secondLanguage: 'es',
-    textToTranslate: 'Hello, how are you?',
-  });
+  const {
+    loading,
+    fromLanguage,
+    toLanguage,
+    fromText,
+    result,
+    interchangeLanguages,
+    setFromLanguage,
+    setToLanguage,
+    setFromText,
+    setResult
+  } = useTransition();
+
 
   async function Translator(firstLanguage, secondLanguage, textToTranslate) {
   
     try {
       const translatedText = await translateApi(firstLanguage, secondLanguage, textToTranslate);
-      setTranslation({
-        ...translation,
-        translatedText: translatedText,
-      });
+      setResult(translatedText);
     } catch (error) {
       console.error('Error:', error);
     }
@@ -35,8 +40,8 @@ function App() {
         <img src={Logo} alt="logo" />
       </header>
       <main className='flex flex-col xl:flex-row justify-center gap-3'>
-        <TranslateCard  onTranslate= {Translator}/>
-        <TranslatedCard translation={translation}/>
+        <TranslateCard onSetLanguage={setFromLanguage}/>
+        <TranslatedCard text={result} toLanguage={toLanguage} onSetLanguage={setToLanguage}/>
       </main>
       
     </div>

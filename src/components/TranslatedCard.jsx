@@ -1,4 +1,4 @@
-import { useState } from 'react';
+
 import PropTypes from 'prop-types';
 
 import countries from '../api/countries.js'
@@ -9,27 +9,17 @@ import Down from '../images/Expand_down.svg'
 import Arrow from '../images/Horizontal_top_left_main.svg'
 
 
-function TranslatedCard () {
+function TranslatedCard ({text, toLanguage, onSetLanguage}) {	
 
-    const [language, setLanguage] = useState('fr');
-    const text ='peo';
+    const language = {toLanguage};
     
 
     const handleClickEnglish = () => {
-        setLanguage('en');
-    
+        onSetLanguage('en');
     }
 
     const handleClickFrench = () => {
-        setLanguage('fr');
-        
-
-    }
-
-    const handleChangeMore = (e) => {
-        const code = e.target.value;
-        setLanguage(code);
-       
+        onSetLanguage('fr');
     }
 
     return (
@@ -43,7 +33,7 @@ function TranslatedCard () {
                         French
                     </button>
                     <label className="flex">
-                        <select name="more" onChange={handleChangeMore} className='input translatecard'>
+                        <select name="more" className='input translatecard'>
                             {Object.entries(countries).map(([countryCode, countryName]) => (
                                 <option key={countryCode} value={countryCode}>
                                     {countryName}
@@ -65,12 +55,9 @@ function TranslatedCard () {
 } 
 
 TranslatedCard.propTypes = {
-    translation: PropTypes.shape({
-      firstLanguage: PropTypes.string.isRequired,
-      secondLanguage: PropTypes.string.isRequired,
-      textToTranslate: PropTypes.string.isRequired,
-      translatedText: PropTypes.string, // Puedes ajustar el tipo según tus necesidades
-    }).isRequired,
+    text: PropTypes.string.isRequired,
+    toLanguage: PropTypes.string.isRequired,
+    onSetLanguage: PropTypes.func.isRequired,
   };
 
 export default TranslatedCard;
