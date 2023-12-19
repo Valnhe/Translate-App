@@ -1,4 +1,4 @@
-import { useState } from 'react';
+
 import PropTypes from 'prop-types';
 
 import '../App.css'
@@ -12,13 +12,12 @@ import Sort from '../images/Sort_alfa.svg'
 import Down from '../images/Expand_down.svg'
 
 
-function TranslateCard ({onSetLanguage}) {
+function TranslateCard ({fromText, onSetText , fromLanguage , onSetLanguage , onTranslation }) {
 
-    const language = 'en';
-    const [text, setText] = useState('hello');
+    const language = fromLanguage;
 
     const handleClickDetect = () => {
-        onSetLanguage('all');
+        onSetLanguage('autodetect');
     }
 
     const handleClickEnglish = () => {
@@ -27,7 +26,6 @@ function TranslateCard ({onSetLanguage}) {
 
     const handleClickFrench = () => {
         onSetLanguage('fr');
-
     }
 
     const handleChangeMore = (e) => {
@@ -37,14 +35,17 @@ function TranslateCard ({onSetLanguage}) {
 
     const handleTextChange = (e) => {
         const text = e.target.value;
-        setText(text);
+        onSetText(text);
     }
+
+    const length= fromText.length;
+    const selectValue = language === 'en' || language === 'fr' ? 'es' : fromLanguage;
 
     return (
         <section className='bg-translatecolor border border-bordercolor rounded-3xl w-full xl:w-1/2 p-5 text-[14px]'>
             <NavBar>
                 <ButtonsNavBar>
-                    <button onClick={handleClickDetect} className={`px-3 py-2 ml-1 ${language === 'all' ? 'active' : ''}`} >
+                    <button onClick={handleClickDetect} className={`px-3 py-2 ml-1 ${language === 'autodetect' ? 'active' : ''}`} >
                         Detect Language
                     </button>
 
@@ -56,10 +57,10 @@ function TranslateCard ({onSetLanguage}) {
                         French
                     </button>
                     
-                    <label className="flex">
-                        <select name="more" onChange={handleChangeMore} className='input translatecard'>
+                    <label className={`flex ${language !== 'autodetect' && language !== 'en' && language !== 'fr' ? 'active' : ''}`}>
+                        <select name="more" onChange={handleChangeMore} className='input translatecard' value={selectValue}>
                             {Object.entries(countries).map(([countryCode, countryName]) => (
-                                <option key={countryCode} value={countryCode}>
+                                <option key={countryCode} value={countryCode} className='bg-translatecolor'>
                                     {countryName}
                                 </option>
                             ))}
@@ -70,14 +71,14 @@ function TranslateCard ({onSetLanguage}) {
                 </ButtonsNavBar>
             </NavBar>
             
-            <textarea className='textarea' name="translate-text" placeholder="Translation" maxLength="500" value={text} onChange={handleTextChange}>
+            <textarea className='textarea' name="translate-text" placeholder="Enter Text" maxLength="500" value={fromText} onChange={handleTextChange}>
             </textarea>
             
-            <p className='text-[12px] text-theothergraycolor float-right mb-2'>19/500</p>
+            <p className='text-[12px] text-theothergraycolor float-right mb-2'>{length}/500</p>
 
             <div className='flex justify-between items-end w-full'>
-                <Buttons/>
-                <button className='flex justify-center gap-2 border bg-buttonblue border-borderblue text-textwhite font-bold text-[16px] py-3 px-5 rounded-xl'>
+                <Buttons text={fromText} lenguage={fromLanguage}/>
+                <button className='flex justify-center gap-2 border bg-buttonblue border-borderblue text-textwhite font-bold text-[16px] py-3 px-5 rounded-xl' onClick={onTranslation}>
                     <img src={Sort} alt="sort" />
                     Translate
                 </button>
@@ -88,7 +89,11 @@ function TranslateCard ({onSetLanguage}) {
 } 
 
 TranslateCard.propTypes = {
+    fromText: PropTypes.string.isRequired,
+    onSetText: PropTypes.func.isRequired,
     onSetLanguage: PropTypes.func.isRequired,
+    fromLanguage: PropTypes.string.isRequired,
+    onTranslation: PropTypes.func.isRequired,
   };
 
 export default TranslateCard;

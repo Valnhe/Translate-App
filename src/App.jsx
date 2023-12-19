@@ -1,5 +1,5 @@
-import { useState, useTransition } from 'react';
 
+import { useTranslation } from './hooks/useTranslation';
 import translateApi from './api/translateApi';
 
 import TranslateCard from './components/TranslateCard';
@@ -21,17 +21,28 @@ function App() {
     setToLanguage,
     setFromText,
     setResult
-  } = useTransition();
+  } = useTranslation();
 
+  console.log(loading);
 
   async function Translator(firstLanguage, secondLanguage, textToTranslate) {
   
     try {
       const translatedText = await translateApi(firstLanguage, secondLanguage, textToTranslate);
-      setResult(translatedText);
+
+      if (translatedText.responseData.detectedLanguage !== undefined) {
+        setFromLanguage(translatedText.responseData.detectedLanguage);
+      }
+
+      setResult(translatedText.responseData.translatedText);
     } catch (error) {
       console.error('Error:', error);
     }
+  }
+
+  const handleTranslation = () => {
+    Translator(fromLanguage, toLanguage, fromText);
+    console.log(result)
   }
 
   return (
@@ -40,8 +51,8 @@ function App() {
         <img src={Logo} alt="logo" />
       </header>
       <main className='flex flex-col xl:flex-row justify-center gap-3'>
-        <TranslateCard onSetLanguage={setFromLanguage}/>
-        <TranslatedCard text={result} toLanguage={toLanguage} onSetLanguage={setToLanguage}/>
+        <TranslateCard fromText={fromText} onSetText={setFromText} fromLanguage={fromLanguage} onSetLanguage={setFromLanguage} onTranslation={handleTranslation}/>
+        <TranslatedCard text={result} toLanguage={toLanguage} onSetLanguage={setToLanguage} interchangeLanguages={interchangeLanguages}/>
       </main>
       
     </div>

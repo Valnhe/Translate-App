@@ -5,7 +5,7 @@ const initialState = {
     fromLanguage: 'en',
     toLanguage: 'fr',
     fromText: 'Hello, how are you?',
-    result: 'Bonjour comment allez-vous?',
+    result: 'Bonjour, comment allez-vous?',
     loading: false
   }
   
@@ -16,7 +16,8 @@ const initialState = {
   
       return {
         ...state,
-        result: '',
+        fromText: state.result,
+        result: state.fromText,
         fromLanguage: state.toLanguage,
         toLanguage: state.fromLanguage
       }
@@ -32,7 +33,6 @@ const initialState = {
     }
   
     if (type === 'SET_TO_LANGUAGE') {
-      if (state.toLanguage === action.payload) return state
   
       return {
         ...state,
